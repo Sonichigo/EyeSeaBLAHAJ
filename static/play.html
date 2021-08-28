@@ -1,0 +1,230 @@
+
+<!doctype html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8" />
+    <title>EyeSeaBLAHAJ</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <script src="http://cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
+    <style type="text/css">
+        body {
+            max-width: 850px;
+            margin: auto;
+            background: url('https://i.pinimg.com/originals/e9/b1/39/e9b139755df92c5ea2bab961d4c64201.gif');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <audio autoplay loop id="playAudio">
+        <source src="Bg.mp3" type="audio/mp3">
+    </audio>
+<script type="text/javascript">
+
+var config = {
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    physics: {
+        default: 'arcade',
+        arcade: {
+               debug: false
+        }
+    },
+    scene: {
+        preload: preload,
+        create: create,
+        update: update
+    }
+};
+
+var player;
+var fish;
+var garbage;
+var bombs;
+var platforms;
+var cursors;
+var score = 0;
+var gameOver = false;
+var scoreText;
+var mySound;
+var game = new Phaser.Game(config);
+
+function preload ()
+{
+    this.load.image('sky', 'images/bg1.png');
+    this.load.image('ground', 'images/platform.png');
+    this.load.image('fish_1', 'images/fish1_1.png');
+    this.load.image('fish_2', 'images/fish2_1.png');
+    this.load.image('fish_3', 'images/fish3_1.png');
+    this.load.image('bomb', 'images/bomb.png');
+    this.load.image('g1', 'images/Bag_1.png');
+    this.load.image('g2', 'images/Box_1.png');
+    this.load.image('g3', 'images/Cans.png');
+    this.load.image('g4', 'images/Bottle_2.png');
+    this.load.spritesheet('dude', 'images/Shark_With_NET.png', { frameWidth: 209, frameHeight: 98});
+}
+
+function create ()
+{
+    platforms = this.physics.add.staticGroup();
+    platforms.create(-4, 300, 'ground').setScale(2).refreshBody();
+
+    //  A simple background for our game
+    this.add.image(400, 300, 'sky').setScale(1.05);
+
+    // The player and its settings
+    player = this.physics.add.sprite(100, 450, 'dude');
+
+    //  Player physics properties. Give the little guy a slight bounce.
+    player.setBounce(0.2);
+    player.setCollideWorldBounds(true);
+    //  Our player animations, turning, walking left and walking right.
+    this.anims.create({
+        key: 'flip',
+        frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 1 }),
+        frameRate: 10,
+        repeat: -1
+    });
+
+
+    //  Input Events
+    cursors = this.input.keyboard.createCursorKeys();
+
+    //  Some garbage to collect
+    fish = this.physics.add.group();
+    garbage = this.physics.add.group();
+    var g0=garbage.create(130,420,'g1');
+
+    bombs = this.physics.add.group();
+    
+    //  The score
+    scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px',fontStyle:'Bold', fill: '#000' });
+
+    //  Checks to see if the player overlaps with any of the garbage, if he does call the collectStar function
+    this.physics.add.collider(player, garbage, collectStar, null, this);
+    this.physics.add.collider(platforms, fish, removeFish, null, this);
+    this.physics.add.collider(platforms, garbage, removeGar, null, this);
+    this.physics.add.collider(platforms, bombs, removeBomb, null, this);
+    this.physics.add.collider(player, bombs, hitBomb, null, this);
+
+}
+
+function update ()
+{
+    if (gameOver)
+    {
+        return;
+    }
+
+    if (cursors.left.isDown)
+    {
+        player.setVelocityX(-160);
+        player.anims.play('flip', true);
+    }
+    else if (cursors.right.isDown)
+    {
+        player.setVelocityX(160);
+        player.anims.play('flip', true);
+    }
+    else if (cursors.up.isDown)
+    {
+        player.setVelocityY(-120);
+        player.anims.play('flip', true);
+    }
+    else if (cursors.down.isDown)
+    {
+        player.setVelocityY(120);
+        player.anims.play('flip', true);
+    }
+    else
+    {
+        player.setVelocityX(0);
+        player.anims.play('flip');
+    }
+}
+
+function removeBomb (platforms, bombs)
+    {
+        bombs.disableBody(true, true);
+        checkBomb();
+    }
+
+function removeFish (platforms, fish)
+    {
+        fish.disableBody(true, true);
+        checkFish();
+    }
+    
+    function removeGar (platforms, garbage)
+    {
+        garbage.disableBody(true, true);
+        checkGar();
+    }
+
+function collectStar (player, garbage)
+    {
+        garbage.disableBody(true, true);
+
+        score += 10;
+        scoreText.setText('Score: ' + score);
+        checkGar();
+        checkBomb();
+        checkFish();
+    }
+
+function checkFish()
+{
+    if(fish.countActive(true)==0)
+    {
+        var fish1 = fish.create(Phaser.Math.Between(800, 1000), Phaser.Math.Between(10, 500),'fish_1');
+        var fish2 = fish.create(Phaser.Math.Between(800, 1000), Phaser.Math.Between(10, 500),'fish_2');
+        var fish3 = fish.create(Phaser.Math.Between(800, 1000), Phaser.Math.Between(10, 500),'fish_3');
+        var fish4 = fish.create(Phaser.Math.Between(800, 1000), Phaser.Math.Between(10, 500),'fish_1');
+        var fish5 = fish.create(Phaser.Math.Between(800, 1000), Phaser.Math.Between(10, 500),'fish_2');
+        var fish6 = fish.create(Phaser.Math.Between(800, 1000), Phaser.Math.Between(10, 500),'fish_3');
+    }
+    fish.setVelocityX(-200)
+}
+
+function checkBomb()
+{
+    if(bombs.countActive(true)==0)
+    {
+        var b1 = bombs.create(Phaser.Math.Between(800, 1000), Phaser.Math.Between(10, 500),'bomb');
+        var b2 = bombs.create(Phaser.Math.Between(800, 1000), Phaser.Math.Between(10, 500),'bomb');
+        var b3 = bombs.create(Phaser.Math.Between(800, 1000), Phaser.Math.Between(10, 500),'bomb');
+        var b4 = bombs.create(Phaser.Math.Between(800, 1000), Phaser.Math.Between(200, 900),'bomb');
+    }
+    bombs.setVelocityX(-1*(Phaser.Math.Between(10, 200)))
+    
+}
+
+function checkGar()
+{
+    if(garbage.countActive(true)==0)
+    {
+        var g1 = garbage.create(Phaser.Math.Between(800, 900), Phaser.Math.Between(10, 500),'g1');
+        var g2 = garbage.create(Phaser.Math.Between(800, 900), Phaser.Math.Between(10, 500),'g2');
+        var g3 = garbage.create(Phaser.Math.Between(800, 900), Phaser.Math.Between(10, 500),'g3');
+        var g4 = garbage.create(Phaser.Math.Between(800, 900), Phaser.Math.Between(10, 500),'g4');
+    }
+    garbage.setVelocityX(-120)
+}
+
+
+function hitBomb (player, bomb)
+{
+    score = score-5;
+    scoreText.setText('Score: ' + score);
+    if(score == 0){
+        this.physics.pause();
+        player.setTint(0xff0000);
+        player.anims.play('flip');
+        gameOver = true;
+    }
+}
+</script>
+</body>
+</html>

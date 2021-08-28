@@ -1,0 +1,109 @@
+
+<!doctype html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8" />
+    <title>EyeSeaBLAHAJ</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <script src="http://cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
+    <style type="text/css">
+        body {
+            max-width: 850px;
+            margin: auto;
+            background: url('https://i.pinimg.com/originals/e9/b1/39/e9b139755df92c5ea2bab961d4c64201.gif');
+            background-repeat: no-repeat;
+            background-size: cover; 
+            opacity: .9;
+        }
+        #container {
+            margin: auto;
+            margin-top: 5%;
+            background: url('https://img.freepik.com/free-vector/sea-background-video-conferencing_52683-43441.jpg?size=626&ext=jpg');
+            background-repeat: no-repeat;
+            background-size: cover; 
+            border: 3px solid black;
+        }
+        p{
+            height: 60%;
+            width: 60%;
+            color: blueviolet;
+            background-color: aliceblue;
+            margin:auto;
+            margin-top: 10%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            text-align: justify ;
+            font-size: 18px;
+            line-height: 2;
+            border-radius: 20px;
+            fill-opacity: unset;
+        }
+        h1{
+            height: 50px;
+            width: 400px;
+            color: blueviolet;
+            background-color: rgba(0,0,0);
+            margin:auto;
+            text-align: center ;
+            font-size: 38px;
+            border-radius: 5px;
+        }
+/*        p:hover{
+            border-color: rgb(174, 0, 255);
+            line-height: 2;
+            justify-content: space-around;
+            text-align: justify ;
+            margin:auto;
+            margin-top: 10%;
+            display: flex;
+            flex-direction: column;
+            border-radius: 20px;
+            background-color: rgba(0,0,0,.5);
+            color: rgb(255, 102, 133);
+        }*/
+        #btn{
+            color: rgb(24, 179, 179);
+            line-height: 2;
+            justify-content: space-around;
+            text-align: justify ;
+            margin:auto;
+            margin-top: 5%;
+            display: flex;
+            border-radius: 20px;
+            transition: all 0.5s;
+            font-size: 28px;
+        }
+        #btn:hover{
+            border-color: rgb(174, 0, 255);
+            line-height: 2;
+            justify-content: space-around;
+            text-align: justify ;
+            margin:auto;
+            margin-top: 5%;
+            display: flex;
+            border-radius: 20px;
+            background-color: rgba(0,0,0);
+            color: rgb(255, 102, 133);
+        }
+    </style>
+</head>
+<body>
+    <div id='container'>
+    <h1>EyeSeaBLAHAJ</h1>
+    <p>
+        1. Use Arrow Keys' to control the BLAHAJ 🦈<br/>
+        2. Help the BLAHAJ 🦈 to clean the Ocean by collecting Plastic.<br/>
+        3. Do not collect 💣.<br/>
+        4. 10 points will be added ➖ for collecting the garbage.<br/>
+        5. 5 points will be deducted ➖ for hitting bomb 🦡🔥(Fire Fish).<br/>
+        6. Once the score is less than 0, game will Over. <br/>
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Start saving BLAHAJ 🦈!<br/>
+    </p>
+        <button id='btn' onclick="window.location.href='/play'">
+            Load Game...
+        </button>
+        <br/>
+    </div>
+</body>
+</html>
