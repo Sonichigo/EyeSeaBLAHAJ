@@ -1,0 +1,15 @@
+doctype=html
+
+html
+   head
+      title Leaderboard
+   body
+    h1 Leaderboard
+    table(style='width:100%', border='1')
+      tr
+         th Name
+         th Score
+      each val in people
+         tr
+            td #{val.name} 
+            td #{val.score}

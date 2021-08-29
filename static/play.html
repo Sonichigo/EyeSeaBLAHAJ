@@ -20,6 +20,13 @@
     <audio autoplay loop id="playAudio">
         <source src="Bg.mp3" type="audio/mp3">
     </audio>
+    <div>
+    <form align='center' action="/submit" method="POST">
+    <input type="text" placeholder="NAME" value="" name="name" required>
+    <input type="text" placeholder="FinalSCORE" name="score" value="" required>
+    <button type="submit" class="btn">Add</button>
+    </form>
+    </div>
 <script type="text/javascript">
 
 var config = {
@@ -62,7 +69,7 @@ function preload ()
     this.load.image('g1', 'images/Bag_1.png');
     this.load.image('g2', 'images/Box_1.png');
     this.load.image('g3', 'images/Cans.png');
-    this.load.image('g4', 'images/Bottle_2.png');
+    this.load.image('g4', 'images/Bottle-02.png');
     this.load.spritesheet('dude', 'images/Shark_With_NET.png', { frameWidth: 209, frameHeight: 98});
 }
 

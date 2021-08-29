@@ -1,0 +1,8 @@
+# Packages
+node_modules/
+
+#Database Model
+db.sql
+
+#connection with cockroach
+connection.js

@@ -19,8 +19,12 @@
   },
   "homepage": "https://github.com/Alivething/Sharkhacks#readme",
   "dependencies": {
+    "dotenv": "^10.0.0",
     "expree": "^0.1.6",
     "node": "^16.6.1",
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "pug": "^3.0.2",
+    "sequelize": "^6.6.5",
+    "sequelize-cockroachdb": "^6.0.1"
   }
 }
