@@ -7,37 +7,37 @@ require('dotenv').config()
 const app = express()
 const port = 3000;
 
-var sequelize = new Sequelize({
-    dialect: "postgres",
-    username: "darkin424",
-    password: "process.env.PSWD",
-    host: "process.env.HOST",
-    port: 26257,
-    database: "process.env.DB",
-    dialectOptions: {
-      ssl: {
-        ca: fs.readFileSync('certs/.postgresql/root.crt')
-                .toString()
-      },
-    },
-    logging: false, 
-  });
-var bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({ extended: false }));
+// var sequelize = new Sequelize({
+//     dialect: "postgres",
+//     username: "darkin424",
+//     password: "process.env.PSWD",
+//     host: "process.env.HOST",
+//     port: 26257,
+//     database: "process.env.DB",
+//     dialectOptions: {
+//       ssl: {
+//         ca: fs.readFileSync('certs/.postgresql/root.crt')
+//                 .toString()
+//       },
+//     },
+//     logging: false, 
+//   });
+// var bodyParser = require("body-parser");
+// app.use(bodyParser.urlencoded({ extended: false }));
 
-const People = sequelize.define("people", {
-    id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true, 
-        primaryKey: true,
-    },
-    name: {
-        type: Sequelize.TEXT,
-    },
-    score: {
-        type: Sequelize.INTEGER,
-    },
-});
+// const People = sequelize.define("people", {
+//     id: {
+//         type: Sequelize.INTEGER,
+//         autoIncrement: true, 
+//         primaryKey: true,
+//     },
+//     name: {
+//         type: Sequelize.TEXT,
+//     },
+//     score: {
+//         type: Sequelize.INTEGER,
+//     },
+// });
 
 app.use(express.static(path.join(__dirname,'./static' )))
 
